@@ -19,6 +19,12 @@ public partial class Form1 : Form
         comboBox1.Items.Add("Task 4: triangle, rectangle, circle");
         comboBox1.Items.Add("Task 5: house");
         comboBox1.Items.Add("Task 6: 5 nested ellipses");
+        comboBox1.Items.Add("Task 7: sun with 12 rays");
+        comboBox1.Items.Add("Task 8: chain of circles");
+        comboBox1.Items.Add("Task 9: star");
+        comboBox1.Items.Add("Task 10: ladder of rectangles");
+        comboBox1.Items.Add("Task 11: frame of squares");
+        comboBox1.Items.Add("Task 12: spiral");
         comboBox1.SelectedIndex = 0;
     }
 
@@ -38,6 +44,12 @@ public partial class Form1 : Form
         if (n == 5) Task4(g);
         if (n == 6) Task5(g);
         if (n == 7) Task6(g);
+        if (n == 8) Task7(g);
+        if (n == 9) Task8(g);
+        if (n == 10) Task9(g);
+        if (n == 11) Task10(g);
+        if (n == 12) Task11(g);
+        if (n == 13) Task12(g);
 
         pictureBox1.Image = bmp;
     }
@@ -165,6 +177,112 @@ public partial class Form1 : Form
             g.DrawEllipse(Pens.Purple, cx - w / 2, cy - h / 2, w, h);
             w = w - 80;
             h = h - 50;
+        }
+    }
+
+    // Task 7: sun with 12 rays
+    private void Task7(Graphics g)
+    {
+        int cx = 256;
+        int cy = 163;
+        Pen rayPen = new Pen(Color.Orange, 3);
+        for (int i = 0; i < 12; i++)
+        {
+            double angle = i * 30 * Math.PI / 180;
+            int x1 = cx + (int)(60 * Math.Cos(angle));
+            int y1 = cy + (int)(60 * Math.Sin(angle));
+            int x2 = cx + (int)(130 * Math.Cos(angle));
+            int y2 = cy + (int)(130 * Math.Sin(angle));
+            g.DrawLine(rayPen, x1, y1, x2, y2);
+        }
+        g.FillEllipse(Brushes.Yellow, cx - 50, cy - 50, 100, 100);
+        g.DrawEllipse(Pens.Orange, cx - 50, cy - 50, 100, 100);
+    }
+
+    // Task 8: chain of circles along a horizontal line
+    private void Task8(Graphics g)
+    {
+        int y = 163;
+        g.DrawLine(Pens.Gray, 10, y, 500, y);
+        for (int x = 20; x < 480; x += 40)
+        {
+            g.FillEllipse(Brushes.DodgerBlue, x, y - 20, 40, 40);
+            g.DrawEllipse(Pens.Black, x, y - 20, 40, 40);
+        }
+    }
+
+    // Task 9: star with 5 points
+    private void Task9(Graphics g)
+    {
+        int cx = 256;
+        int cy = 170;
+        int R = 130;
+        int r = 55;
+        Point[] star = new Point[10];
+        for (int i = 0; i < 10; i++)
+        {
+            double angle = (i * 36 - 90) * Math.PI / 180;
+            int rad;
+            if (i % 2 == 0) rad = R;
+            else rad = r;
+            star[i] = new Point(cx + (int)(rad * Math.Cos(angle)), cy + (int)(rad * Math.Sin(angle)));
+        }
+        g.FillPolygon(Brushes.Gold, star);
+        g.DrawPolygon(Pens.DarkOrange, star);
+    }
+
+    // Task 10: ladder of rectangles, each one is higher
+    private void Task10(Graphics g)
+    {
+        int x = 30;
+        int h = 40;
+        for (int i = 0; i < 8; i++)
+        {
+            g.FillRectangle(Brushes.SteelBlue, x, 300 - h, 50, h);
+            g.DrawRectangle(Pens.Black, x, 300 - h, 50, h);
+            x = x + 55;
+            h = h + 30;
+        }
+    }
+
+    // Task 11: frame of squares around the perimeter
+    private void Task11(Graphics g)
+    {
+        int s = 30;
+        int w = pictureBox1.Width;
+        int h = pictureBox1.Height;
+        for (int x = 0; x < w - s; x += s)
+        {
+            g.FillRectangle(Brushes.Teal, x, 0, s, s);
+            g.DrawRectangle(Pens.White, x, 0, s, s);
+            g.FillRectangle(Brushes.Teal, x, h - s - 2, s, s);
+            g.DrawRectangle(Pens.White, x, h - s - 2, s, s);
+        }
+        for (int y = 0; y < h - s; y += s)
+        {
+            g.FillRectangle(Brushes.Teal, 0, y, s, s);
+            g.DrawRectangle(Pens.White, 0, y, s, s);
+            g.FillRectangle(Brushes.Teal, w - s - 2, y, s, s);
+            g.DrawRectangle(Pens.White, w - s - 2, y, s, s);
+        }
+    }
+
+    // Task 12: spiral of lines
+    private void Task12(Graphics g)
+    {
+        double x = 256;
+        double y = 163;
+        double len = 5;
+        double angle = 0;
+        for (int i = 0; i < 80; i++)
+        {
+            double nx = x + len * Math.Cos(angle);
+            double ny = y + len * Math.Sin(angle);
+            g.DrawLine(Pens.DarkGreen, (float)x, (float)y, (float)nx, (float)ny);
+            x = nx;
+            y = ny;
+            angle = angle + Math.PI / 2;
+            len = len + 2;
         }
     }
 }
