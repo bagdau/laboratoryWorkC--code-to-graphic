@@ -25,6 +25,12 @@ public partial class Form1 : Form
         comboBox1.Items.Add("Task 10: ladder of rectangles");
         comboBox1.Items.Add("Task 11: frame of squares");
         comboBox1.Items.Add("Task 12: spiral");
+        comboBox1.Items.Add("Task 13: flag");
+        comboBox1.Items.Add("Task 14: clock face");
+        comboBox1.Items.Add("Task 15: random mosaic");
+        comboBox1.Items.Add("Task 16: waves");
+        comboBox1.Items.Add("Task 17: smiley face");
+        comboBox1.Items.Add("Task 18: cube");
         comboBox1.SelectedIndex = 0;
     }
 
@@ -50,6 +56,12 @@ public partial class Form1 : Form
         if (n == 11) Task10(g);
         if (n == 12) Task11(g);
         if (n == 13) Task12(g);
+        if (n == 14) Task13(g);
+        if (n == 15) Task14(g);
+        if (n == 16) Task15(g);
+        if (n == 17) Task16(g);
+        if (n == 18) Task17(g);
+        if (n == 19) Task18(g);
 
         pictureBox1.Image = bmp;
     }
@@ -284,5 +296,99 @@ public partial class Form1 : Form
             angle = angle + Math.PI / 2;
             len = len + 2;
         }
+    }
+
+    // Task 13: flag with three horizontal stripes
+    private void Task13(Graphics g)
+    {
+        g.FillRectangle(Brushes.White, 80, 60, 360, 70);
+        g.FillRectangle(Brushes.Blue, 80, 130, 360, 70);
+        g.FillRectangle(Brushes.Red, 80, 200, 360, 70);
+        g.DrawRectangle(Pens.Black, 80, 60, 360, 210);
+        // flagpole
+        g.FillRectangle(Brushes.Gray, 72, 50, 8, 260);
+    }
+
+    // Task 14: clock face
+    private void Task14(Graphics g)
+    {
+        int cx = 256;
+        int cy = 163;
+        int r = 140;
+        g.DrawEllipse(new Pen(Color.Black, 3), cx - r, cy - r, r * 2, r * 2);
+        for (int i = 0; i < 12; i++)
+        {
+            double angle = i * 30 * Math.PI / 180;
+            int x1 = cx + (int)((r - 15) * Math.Cos(angle));
+            int y1 = cy + (int)((r - 15) * Math.Sin(angle));
+            int x2 = cx + (int)(r * Math.Cos(angle));
+            int y2 = cy + (int)(r * Math.Sin(angle));
+            g.DrawLine(new Pen(Color.Black, 2), x1, y1, x2, y2);
+        }
+        // hands
+        g.DrawLine(new Pen(Color.Black, 4), cx, cy, cx + 60, cy - 40);
+        g.DrawLine(new Pen(Color.Red, 2), cx, cy, cx - 20, cy - 90);
+        g.FillEllipse(Brushes.Black, cx - 5, cy - 5, 10, 10);
+    }
+
+    // Task 15: mosaic of random colored squares
+    private void Task15(Graphics g)
+    {
+        Random rnd = new Random();
+        int s = 25;
+        for (int x = 0; x < pictureBox1.Width - s; x += s)
+        {
+            for (int y = 0; y < pictureBox1.Height - s; y += s)
+            {
+                Color c = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                Brush b = new SolidBrush(c);
+                g.FillRectangle(b, x, y, s, s);
+            }
+        }
+    }
+
+    // Task 16: waves (several sinusoidal lines)
+    private void Task16(Graphics g)
+    {
+        Pen[] pens = { Pens.Blue, Pens.Green, Pens.Red, Pens.Purple };
+        for (int k = 0; k < 4; k++)
+        {
+            Point[] pts = new Point[500];
+            for (int x = 0; x < 500; x++)
+            {
+                double y = 163 + (k - 1.5) * 60 + 25 * Math.Sin(x * 0.04 + k);
+                pts[x] = new Point(x + 5, (int)y);
+            }
+            g.DrawLines(pens[k], pts);
+        }
+    }
+
+    // Task 17: smiley face
+    private void Task17(Graphics g)
+    {
+        int cx = 256;
+        int cy = 163;
+        g.FillEllipse(Brushes.Yellow, cx - 120, cy - 120, 240, 240);
+        g.DrawEllipse(new Pen(Color.Black, 3), cx - 120, cy - 120, 240, 240);
+        // eyes
+        g.FillEllipse(Brushes.Black, cx - 60, cy - 50, 30, 40);
+        g.FillEllipse(Brushes.Black, cx + 30, cy - 50, 30, 40);
+        // smile
+        g.DrawArc(new Pen(Color.Black, 5), cx - 70, cy - 40, 140, 120, 20, 140);
+    }
+
+    // Task 18: cube in 3D projection
+    private void Task18(Graphics g)
+    {
+        int d = 50; // shift for the back side
+        // back square
+        g.DrawRectangle(Pens.Gray, 190 + d, 70 - d, 140, 140);
+        // front square
+        g.DrawRectangle(Pens.Black, 190, 70, 140, 140);
+        // lines that connect the squares
+        g.DrawLine(Pens.Black, 190, 70, 190 + d, 70 - d);
+        g.DrawLine(Pens.Black, 330, 70, 330 + d, 70 - d);
+        g.DrawLine(Pens.Black, 190, 210, 190 + d, 210 - d);
+        g.DrawLine(Pens.Black, 330, 210, 330 + d, 210 - d);
     }
 }
