@@ -169,7 +169,7 @@ public partial class Form1 : Form
         g.DrawRectangle(Pens.Black, 150, 140, 200, 150);
         // roof
         Point[] roof = { new Point(130, 140), new Point(250, 50), new Point(370, 140) };
-        g.FillPolygon(Brushes.Brown, roof);
+        g.FillPolygon(Brushes.Firebrick, roof);
         // door
         g.FillRectangle(Brushes.SaddleBrown, 170, 200, 50, 90);
         // window
@@ -218,7 +218,7 @@ public partial class Form1 : Form
         g.DrawLine(Pens.Gray, 10, y, 500, y);
         for (int x = 20; x < 480; x += 40)
         {
-            g.FillEllipse(Brushes.DodgerBlue, x, y - 20, 40, 40);
+            g.FillEllipse(Brushes.MediumVioletRed, x, y - 20, 40, 40);
             g.DrawEllipse(Pens.Black, x, y - 20, 40, 40);
         }
     }

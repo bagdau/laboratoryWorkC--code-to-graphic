@@ -30,7 +30,10 @@ partial class Form1
         this.button1.Size = new System.Drawing.Size(120, 28);
         this.button1.TabIndex = 0;
         this.button1.Text = "Draw";
-        this.button1.UseVisualStyleBackColor = true;
+        this.button1.BackColor = System.Drawing.Color.SteelBlue;
+        this.button1.ForeColor = System.Drawing.Color.White;
+        this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        this.button1.UseVisualStyleBackColor = false;
         this.button1.Click += new System.EventHandler(this.button1_Click);
         //
         // comboBox1
@@ -61,7 +64,8 @@ partial class Form1
         this.Controls.Add(this.comboBox1);
         this.Controls.Add(this.button1);
         this.Name = "Form1";
-        this.Text = "Lab work - Graphics";
+        this.BackColor = System.Drawing.Color.WhiteSmoke;
+        this.Text = "Laboratory work - Graphics in C#";
         this.Load += new System.EventHandler(this.Form1_Load);
         ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
         this.ResumeLayout(false);
